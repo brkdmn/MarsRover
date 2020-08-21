@@ -55,5 +55,20 @@ namespace MarsRover.Test
 
             Assert.That(ex.Message, Is.EqualTo("Rover out of the plateau."));
         }
+
+        [Test]
+        public void CreateRover_WrongDirection_ReturnArgumentException()
+        {
+            var _plateauService = serviceProvider.GetService<IPlateauService>();
+            var _roverService = serviceProvider.GetService<IRoverService>();
+            var _calculateService = serviceProvider.GetService<ICalculateService>();
+
+            var plateau = _plateauService.CreatePlateau("2 3");
+            var rover = _roverService.CreateRover("1 2 N", "RMLKK");
+
+            var ex = Assert.Throws<ArgumentException>(() => _calculateService.RunInstructions(rover, plateau));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid Instruction"));
+        }
     }
 }

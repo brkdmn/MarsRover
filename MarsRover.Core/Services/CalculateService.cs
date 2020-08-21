@@ -11,18 +11,23 @@ namespace MarsRover.Core.Services
         {
             foreach (var instruction in rover.InstructionCommand)
             {
-                if (!IsRoverPositionInPlateau(rover, plateau))
-                {
-                    throw new Exception("Rover out of the plateau.");
-                }
+                ValidateInstruction(instruction);
 
                 if (instruction == 'M')
                 {
                     Move(rover);
+                    if (!IsRoverPositionInPlateau(rover, plateau))
+                    {
+                        throw new Exception("Rover out of the plateau.");
+                    }
                     continue;
                 }
 
                 Turn(rover, CommonHelper.ConvertDirectionToEnum(instruction.ToString()));
+                if (!IsRoverPositionInPlateau(rover, plateau))
+                {
+                    throw new Exception("Rover out of the plateau.");
+                }
             }
         }
 
@@ -86,6 +91,14 @@ namespace MarsRover.Core.Services
 
             rover.LastPosition = newPosition;
             rover.PositionHistory.Add(newPosition);
+        }
+
+        private void ValidateInstruction(char instruction)
+        {
+            if(instruction != 'M' && instruction != 'L' && instruction != 'R')
+            {
+                throw new ArgumentException("Invalid Instruction");
+            }
         }
     }
 }

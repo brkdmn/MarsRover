@@ -43,10 +43,21 @@ namespace MarsRover.Test
         }
 
         [Test]
-        public void CreateRover_InvalidPositionCommand_ReturnIndexOutOfRangeException()
+        public void CreateRover_TooMuchPositionArgs_ReturnArgumentException()
         {
             var _roverService = serviceProvider.GetService<IRoverService>();
-            Assert.Throws<IndexOutOfRangeException>(() => _roverService.CreateRover("12N", "LMLMLMLMM"));
+            var ex = Assert.Throws<ArgumentException>(() => _roverService.CreateRover("5 6 8 N", "LMLMLM"));
+
+            Assert.That(ex.Message, Is.EqualTo("Position counts must be 3."));
+        }
+
+        [Test]
+        public void CreateRover_WrongOrientation_ReturnArgumentException()
+        {
+            var _roverService = serviceProvider.GetService<IRoverService>();
+            var ex = Assert.Throws<ArgumentException>(() => _roverService.CreateRover("5 6 P", "LMLMLM"));
+
+            Assert.That(ex.Message, Is.EqualTo("Invalid Orientation"));
         }
 
         [Test]

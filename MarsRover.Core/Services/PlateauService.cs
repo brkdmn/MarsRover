@@ -2,6 +2,7 @@
 using MarsRover.Model;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace MarsRover.Core.Services
 {
@@ -18,6 +19,11 @@ namespace MarsRover.Core.Services
             try
             {
                 var coordinates = upperRightCoordinate.Split(" ");
+
+                if(coordinates.Count() != 2)
+                {
+                    throw new ArgumentException("Coordinate counts must be 2.");
+                }
 
                 if (!int.TryParse(coordinates[0], out int x) || !int.TryParse(coordinates[1], out int y))
                 {

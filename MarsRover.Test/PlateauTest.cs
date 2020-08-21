@@ -52,10 +52,12 @@ namespace MarsRover.Test
         }
 
         [Test]
-        public void CreatePalteau_InvalidCoordinates_ReturnOutOfRangeException()
+        public void CreatePalteau_TooMuchCoordinates_ReturnArgumentException()
         {
             var _plateauService = serviceProvider.GetService<IPlateauService>();
-            Assert.Throws<IndexOutOfRangeException>(() => _plateauService.CreatePlateau("99"));
+            var ex  = Assert.Throws<ArgumentException>(() => _plateauService.CreatePlateau("5 6 8"));
+            
+            Assert.That(ex.Message, Is.EqualTo("Coordinate counts must be 2."));
         }
     }
 }
