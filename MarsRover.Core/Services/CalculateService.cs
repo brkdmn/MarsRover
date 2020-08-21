@@ -13,6 +13,11 @@ namespace MarsRover.Core.Services
         {
             foreach (var instruction in rover.InstructionCommand)
             {
+                if (!IsRoverPositionInPlateau(rover, plateau))
+                {
+                    throw new Exception("Rover out of the plateau.");
+                }
+
                 if (instruction == 'M')
                 {
                     Move(rover);
@@ -20,11 +25,6 @@ namespace MarsRover.Core.Services
                 }
 
                 Turn(rover, CommonHelper.ConvertDirectionToEnum(instruction.ToString()));
-
-                if(!IsRoverPositionInPlateau(rover, plateau))
-                {
-                    throw new Exception("Rover out of the plateau");
-                }
             }
         }
 
