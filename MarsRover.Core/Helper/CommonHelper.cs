@@ -1,7 +1,4 @@
 ﻿using MarsRover.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MarsRover.Core.Helper
 {
