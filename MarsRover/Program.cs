@@ -22,12 +22,18 @@ namespace MarsRover
 
             Console.WriteLine();
             Console.WriteLine("Press ENTER to exit...");
-            var key = Console.ReadKey();
 
-            if (key.Key == ConsoleKey.Enter)
+            Exit();
+        }
+
+        public static void Exit()
+        {
+            var c = Console.ReadKey();
+            if(c.Key == ConsoleKey.Enter)
             {
-
+                return;
             }
+            Exit();
         }
     }
 }
